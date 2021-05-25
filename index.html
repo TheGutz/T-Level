@@ -2,12 +2,12 @@
 <html>
 <head>
 	
-	<title>ok £19 in video game currency</title>
+	<title>My First Web Page</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="L.Control.MousePosition.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
@@ -16,15 +16,12 @@
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
     <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+    <script src='strode.js'></script>
 </head>
 <body>
 
-
-
 <div id="mapid"></div>
 <script>
-
-	
 
 	//L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
        	//maxZoom: 20,
@@ -35,8 +32,6 @@
 	//	zoomOffset: -1
 	//}).addTo(mymap);
 	
-
-
  	var mymap = L.map('mapid', {
             center: [51.12965, -2.73257],
 	    zoom: 17,
@@ -78,8 +73,8 @@
            "OSM ": osm,
            "Google": google
         };
-	
-	var siteData = L.geoJson(null, {
+	var data = L.geoJson(strodeData , {
+	//var siteData = L.geoJson(null , {
 	    pointToLayer: function (feature, latlng) {
 		return L.marker(latlng)
             },
@@ -93,10 +88,10 @@
 		     '<br>' + feature.properties.description
                 );
             }
-        });
+        }).addTo(mymap);;
 	//var data = omnivore.csv('strode.csv').addTo(mymap);
-	var data = omnivore.csv('strode.csv', null, siteData).on('ready', function() {}).addTo(mymap);
-
+	//var data = omnivore.csv('strode.csv', null, siteData).on('ready', function() {}).addTo(mymap);
+        
         var overlayMaps = {
 	    "Surface": surface,
             //"Marker": marker,
@@ -104,7 +99,6 @@
             //"College 1": college1,
 	    "Data": data
        };
-	
 
        L.control.layers(baseMaps, overlayMaps).addTo(mymap);
        L.control.mousePosition().addTo(mymap);
@@ -112,8 +106,6 @@
 	mymap.addControl(new L.Control.Fullscreen());
 
 </script>
-
-
 
 </body>
 </html>
